@@ -7,6 +7,7 @@ Controller: 웹 애플리케이션에서 첫 번째 진입점
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HelloController {
@@ -32,6 +33,21 @@ public class HelloController {
         스프링은 요청이 오면 컨트롤러에서 우선적으로 찾는다.
         관련 컨트롤러가 없을 경우 static 하위에서 정적 컨텐츠를 찾아 반환한다.
 
-        */
+        MVC와 템플릿 엔진
+        MVC: Model, View, Controller
+        Controller: @Controller
+        View: resources/template/hello-template.html
+        * 과거에는 Controller와 View를 분리하지 않고 개발: 모델 원 방식
+        분리하는 이유: 관심사 분리, 역할과 책임
+        - View는 화면을 그리는데 집중해야 한다.
+        - Model/Controller는 비즈니스 로직, 내부적인 처리에 집중해야 한다.
+       */
+    }
+
+    @GetMapping("hello-mvc")
+    public String helloMvc(@RequestParam("name") String name, Model model) {
+        model.addAttribute("name", name); // key, value
+
+        return "hello-template";
     }
 }
