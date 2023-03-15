@@ -18,7 +18,7 @@ public class HelloController {
 
         return "hello"; // 이름이 resources/templates에 있는 동일한 이름의 템플릿을 찾아 렌더링한다.
         /*
-        컨트롤러에서 리턴 값으로 문자를 반환하면 뷰 리졸버( viewResolver )가 화면을 찾아서 처리한다.
+        컨트롤러에서 리턴 값으로 문자를 반환하면 뷰 리졸버( viewResolver )가 화면(템플릿 html)을 찾아서 처리한다.
         스프링 부트 템플릿엔진 기본 viewName 매핑
         resources:templates/ +{ViewName}+ .html
          */
@@ -45,9 +45,10 @@ public class HelloController {
     }
 
     @GetMapping("hello-mvc")
-    public String helloMvc(@RequestParam("name") String name, Model model) {
+    public String helloMvc(@RequestParam(value = "name", required = false) String name, Model model) { // required 기본은 true, required를 생략했을 경우 name parameter를 get 방식으로 던져야 한다.
         model.addAttribute("name", name); // key, value
 
         return "hello-template";
     }
+    // 그냥 실행 시 오류 발생: Required String parameter 'name' is not present
 }
