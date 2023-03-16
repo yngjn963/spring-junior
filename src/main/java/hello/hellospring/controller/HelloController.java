@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class HelloController {
@@ -27,7 +28,7 @@ public class HelloController {
         스프링 웹 개발 기초
         정적 컨텐츠: 서버에서 별다른 작업 없이 파일을 그대로 웹 브라우저에 내려주는 방식
         MVC와 템플릿 엔진: 서버에서 html에 필요한 작업을 수행하여 전달하는 방식
-        API: JSON 데이터 구조 포맷으로 클라이언트에 데이터를 전달하는 방식
+        API: JSON 데이터 구조 포맷으로 클라이언트에 데이터를 전달하는 방식(html이 아닌 데이터를 바로 내리는 방법)
 
         정적 컨텐츠
         스프링은 요청이 오면 컨트롤러에서 우선적으로 찾는다.
@@ -51,4 +52,11 @@ public class HelloController {
         return "hello-template";
     }
     // 그냥 실행 시 오류 발생: Required String parameter 'name' is not present
+
+    @GetMapping("hello-string")
+    @ResponseBody // http의 body부에 return 값을 직접 넣어주겠다!
+    public String helloString(@RequestParam("name") String name) {
+        return "hello" + name;
+    }
+    // 템플릿 엔진은 view라는 템플릿이 있고 그 템플릿을 조작하는 방식이라면, API 방식은 view 없이 데이터를 그대로 클라이언트에 내린다.
 }
