@@ -59,4 +59,27 @@ public class HelloController {
         return "hello" + name;
     }
     // 템플릿 엔진은 view라는 템플릿이 있고 그 템플릿을 조작하는 방식이라면, API 방식은 view 없이 데이터를 그대로 클라이언트에 내린다.
+
+    @GetMapping("hello-api")
+    @ResponseBody
+    public Hello helloApi(@RequestParam("name") String name) {
+        Hello hello = new Hello();
+
+        hello.setName(name);
+
+        return hello; // 문자가 아닌 객체 반환
+        // json 구조의 데이터를 반환한다.
+    }
+
+    static class Hello {
+        private String name;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+    }
 }
