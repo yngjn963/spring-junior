@@ -88,5 +88,5 @@ public class HelloController {
     // 문자가 반환되면 StringConverter(기본 문자처리: StringHttpMessageConverter)
     // 문자가 아닌 객체가 오면(객체가 return)? json 형식으로 반환하는 JsonConverter가 동작한다(기본 객체처리: MappingJackson2HttpMessageConverter).
     // * Jackson: 많이 사용하는 Json 라이브러리(그 외 Google의 Gson 등이 있다).
-    // * 클라이언트의 HTTP Accept 헤더와 서버의 컨트롤러 반환 타입 정보 둘을 조합해서 HttpMessageConverter가 선택된다. HTTP에서 xml만 취급한다면 xml로 반환하는 Converter도 사용할 수 있다...
+    // * 클라이언트의 HTTP Accept 헤더와 서버의 컨트롤러 반환 타입 정보 둘을 조합해서 HttpMessageConverter가 선택된다. HTTP에서 xml만 취급한다면 xml로 반환하는 Converter도 사용할 수 있다..
 }
