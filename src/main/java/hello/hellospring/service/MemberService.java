@@ -45,6 +45,12 @@ public class MemberService {
         return memberRepository.findAll();
     }
 
+    /**
+     * 회원 한 명 조회
+     *
+     * @param memberId
+     * @return
+     */
     public Optional<Member> findOne(Long memberId) {
         return memberRepository.findById(memberId);
     }
