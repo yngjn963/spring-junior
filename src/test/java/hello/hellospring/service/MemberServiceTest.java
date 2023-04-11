@@ -7,13 +7,16 @@ import static org.junit.jupiter.api.Assertions.*;
 class MemberServiceTest {
     @Test
     void join() {
+
     }
 
     @Test
     void findMembers() {
+
     }
 
     @Test
     void findOne() {
+
     }
 }
