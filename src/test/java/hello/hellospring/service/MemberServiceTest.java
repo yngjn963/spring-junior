@@ -1,14 +1,30 @@
 package hello.hellospring.service;
 
 import hello.hellospring.domain.Member;
+import hello.hellospring.repository.MemoryMemberRepository;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MemberServiceTest {
-    MemberService memberService = new MemberService();
+    MemberService memberService;
+//    MemoryMemberRepository memberRepository = new MemoryMemberRepository(); // MemberService 객체에 MemoryMemberRepository 필드가 있기 때문에 다른 인스턴스를 생성하는 것은 개념적으로 옳지 않다.
+    MemoryMemberRepository memberRepository;
+
+    @BeforeEach
+    public void beforeEach() {
+        memberRepository = new MemoryMemberRepository();
+        memberService = new MemberService(memberRepository); // 직접 생성하지 않고 외부에서 리포지토리를 주입받음 = Dependency Injection(DI)
+    }
+
+    @AfterEach
+    public void afterEach() {
+        memberRepository.clearStore();
+    }
 
     @Test
     void 회원가입() {
