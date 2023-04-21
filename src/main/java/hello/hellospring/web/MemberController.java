@@ -12,5 +12,4 @@ public class MemberController {
     public MemberController(MemberService memberService) { // 오류 발생: memberService가 스프링 빈으로 등록되어 있지 않다.
         this.memberService = memberService;
     }
-
 }
