@@ -15,7 +15,19 @@ public class MemberController {
 
     /*
     스프링 빈을 등록하는 2가지 방법
-    - 컴포넌트 스캔과 자동 의존관계 설정
+    - 컴포넌트 스캔과 자동 의존관계 설정: @Controller, @Service, @Repository 안에 @Component = 스프링 컨테이너 안에 객체가 등록되어, Controller - Service - Repository 관계를 사용
     - 자바 코드로 직접 스프링 빈 등록하기
+     */
+    /*
+    아무 클래스에 어노테이션을 붙여도 스프링 빈으로 사용 가능?
+    불가능
+    = hello.hellospring.HelloSpringApplication에서 스프링이 동작
+    하위 패키지에 탐색하기 때문에 하위 패키지가 아니면 사용 불가능하다.
+    (설정 시에는 사용 가능(@ComponentScan), 기본적으로 불가능)
+     */
+    /*
+    스프링은 스프링 컨테이너에 스프링 빈을 등록할 때, 기본으로 싱글톤으로 등록한다(Controller, Service, Repository).
+    따라서 같은 스프링 빈이면 모두 같은 인스턴스다.
+    설정으로 싱글톤이 아니게 설정할 수 있지만, 특별한 경우를 제외하면 대부분 싱글톤을 사용한다.
      */
 }
