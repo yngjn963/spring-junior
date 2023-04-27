@@ -1,4 +1,4 @@
-package hello.hellospring.web;
+package hello.hellospring.controller;
 
 import hello.hellospring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
