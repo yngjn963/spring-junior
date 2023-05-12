@@ -3,6 +3,9 @@ package hello.hellospring.repository;
 import hello.hellospring.domain.Member;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +19,12 @@ public class JdbcMemberRepository implements MemberRepository {
 
     @Override
     public Member save(Member member) {
+        String sql = "insert into member(name) values(?)";
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
         return null;
     }
 
