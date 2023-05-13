@@ -21,7 +21,7 @@ public class JdbcMemberRepository implements MemberRepository {
     public Member save(Member member) {
         String sql = "insert into member(name) values(?)";
 
-        Connection conn = null;
+        Connection conn = getConnection();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
 
@@ -41,5 +41,9 @@ public class JdbcMemberRepository implements MemberRepository {
     @Override
     public List<Member> findAll() {
         return null;
+    }
+
+    private Connection getConnection() {
+        return DataSourceUtils.getConnection(dataSource);
     }
 }
