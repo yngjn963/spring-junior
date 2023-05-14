@@ -21,9 +21,15 @@ public class JdbcMemberRepository implements MemberRepository {
     public Member save(Member member) {
         String sql = "insert into member(name) values(?)";
 
-        Connection conn = getConnection();
+        Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
+
+        try {
+            conn = getConnection();
+        } catch (Exception e) {
+
+        }
 
         return null;
     }
