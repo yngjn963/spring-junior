@@ -1,13 +1,23 @@
 package hello.hellospring;
 
+import hello.hellospring.repository.JdbcMemberRepository;
 import hello.hellospring.repository.MemberRepository;
-import hello.hellospring.repository.MemoryMemberRepository;
 import hello.hellospring.service.MemberService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.sql.DataSource;
+
 @Configuration // 스프링이 뜰 때 Configuration을 읽는다.
 public class SpringConfig {
+    private DataSource dataSource; // application.properties에 등록된 정보로 DataSource 빈을 스프링이 생성해 준다.
+
+    @Autowired
+    public SpringConfig(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     @Bean // 스프링 빈에 등록
     public MemberService memberService() {
         return new MemberService(memberRepository());
@@ -15,7 +25,18 @@ public class SpringConfig {
 
     @Bean
     public MemberRepository memberRepository() {
-        return new MemoryMemberRepository();
+//        return new MemoryMemberRepository();
+        return new JdbcMemberRepository(dataSource);
+        /*
+        스프링을 왜 쓰는가?
+        객체 지향, 다형성을 편리하게 구현할 수 있도록 스프링 컨테이너가 지원한다. (Dependency Injection 등을 통해)
+
+        애플리케이션 조립(어셈블리)하는 설정만 수정하면 실제 애플리케이션 소스는 수정하지 않아도 된다.
+
+        개방-폐쇄 원칙(OCP, Open-Closed Principle)
+        확장에는 열려있고, 수정, 변경에는 닫혀있다.
+        스프링의 DI (Dependencies Injection)을 사용하면 기존 코드를 전혀 손대지 않고, 설정만으로 구현 클래스를 변경할 수 있다.
+         */
     }
     /*
     XML로 설정하는 방식도 있지만 최근에는 잘 사용하지 않는다.
