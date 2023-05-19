@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@SpringBootTest //
-@Transactional // 스프링 통합 테스트
+@SpringBootTest // 스프링 통합 테스트(스프링 컨테이너와 테스트를 함께 실행 = 스프링을 실제로 실행하여 테스트)
+@Transactional // 테스트 시작 전에 트랜잭션을 시작하고, 테스트 완료 후 Rollback: DELETE 쿼리를 작성할 필요가 없다.(DB에 데이터가 남지 않으므로 다음 테스트에 영향을 주지 않는다.)
 class MemberServiceIntegrationTest {
     @Autowired MemberService memberService;
     @Autowired MemberRepository memberRepository;
@@ -30,6 +30,10 @@ class MemberServiceIntegrationTest {
 //        memberRepository.clearStore();
 //    }
     // 메모리에 올라가 있는 데이터를 다음 테스트를 위해 지운 작업 >> 데이터베이스에서 불필요
+//    @AfterEach
+//    public void afterEach() {
+//        memberRepository.deleteAll(); // 첫 번째 테스트 이후 두 번째 테스트부터는 DB에서 데이터를 지워야 성공할 수 있다.
+//    }
 
     @Test
     void 회원가입() {
@@ -56,16 +60,8 @@ class MemberServiceIntegrationTest {
 
         // when
         memberService.join(member1);
-//        try {
-//            memberService.join(member2);
-//            fail();
-//        } catch (IllegalStateException e) {
-//            assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
-//            assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다. 123");
-//        }
 
-        IllegalStateException e = assertThrows(IllegalStateException.class, () -> memberService.join(member2));// 정상적으로 오류가 발생하는지 확인
-//        assertThrows(NullPointerException.class, () -> memberService.join(member2)); // 정상적으로 오류가 발생하는지 확인
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> memberService.join(member2));
 
         assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
         // then
