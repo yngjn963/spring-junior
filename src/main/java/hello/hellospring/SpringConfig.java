@@ -2,21 +2,32 @@ package hello.hellospring;
 
 import hello.hellospring.repository.JdbcMemberRepository;
 import hello.hellospring.repository.JdbcTemplateMemberRepository;
+import hello.hellospring.repository.JpaMemberRepository;
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 
 @Configuration // 스프링이 뜰 때 Configuration을 읽는다.
 public class SpringConfig {
-    private DataSource dataSource; // application.properties에 등록된 정보로 DataSource 빈을 스프링이 생성해 준다.
+//    private DataSource dataSource; // application.properties에 등록된 정보로 DataSource 빈을 스프링이 생성해 준다.
+//
+//    @Autowired
+//    public SpringConfig(DataSource dataSource) {
+//        this.dataSource = dataSource;
+//    }
+//    @PersistenceContext // 1번 방법
+    private EntityManager em;
 
+    //2번 방법: DI
     @Autowired
-    public SpringConfig(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public SpringConfig(EntityManager em) {
+        this.em = em;
     }
 
     @Bean // 스프링 빈에 등록
@@ -28,7 +39,8 @@ public class SpringConfig {
     public MemberRepository memberRepository() {
 //        return new MemoryMemberRepository();
 //        return new JdbcMemberRepository(dataSource);
-        return new JdbcTemplateMemberRepository(dataSource);
+//        return new JdbcTemplateMemberRepository(dataSource);
+        return new JpaMemberRepository(em);
         /*
         스프링을 왜 쓰는가?
         객체 지향, 다형성을 편리하게 구현할 수 있도록 스프링 컨테이너가 지원한다. (Dependency Injection 등을 통해)

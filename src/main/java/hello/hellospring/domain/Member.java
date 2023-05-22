@@ -14,9 +14,13 @@ MemberService ---------- MemberRepository(Interface)
 개발을 진행하기 위해 초기 개발 단계에서는 구현체로 가벼운 메모리 기반의 데이터 저장소 사용
  */
 
-public class Member {
+import javax.persistence.*;
 
+@Entity // jpa: ORM(Object Relational Mapping: 객체와 관계형 데이터베이스를 맵핑)
+public class Member { // jpa과 관리하는 엔티티가 된다.
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) // 테이블 PK & 데이터베이스가 생성하는 값
     private Long id;
+//    @Column(name = "username") // 테이블 컬럼명이 다르면 Column 어노테이션으로 지정
     private String name;
 
     public Long getId() {
