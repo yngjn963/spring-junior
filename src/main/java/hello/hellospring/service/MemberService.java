@@ -27,16 +27,36 @@ public class MemberService {
      * @return
      */
     public Long join(Member member) {
-        // 같은 이름이 있는 중복 회원은 안된다고 가정하면
-        validateDuplicateMember(member); // ctrl + alt + shift + T = 메서드 추출
+        long start = System.currentTimeMillis();
+
+        try {
+            // 같은 이름이 있는 중복 회원은 안된다고 가정하면
+            validateDuplicateMember(member); // ctrl + alt + shift + T = 메서드 추출
 //        Optional<Member> result = memberRepository.findByName(member.getName());
 //        result.ifPresent(m -> { // 이미 존재하면 -> 람다식
 //            throw new IllegalStateException("이미 존재하는 회원입니다.");
 //        });
 
-        memberRepository.save(member);
+            memberRepository.save(member);
 
-        return member.getId();
+            return member.getId();
+        } finally {
+            long finish = System.currentTimeMillis();
+            long timeMs = finish - start;
+
+            System.out.println("join = " + timeMs + "ms");
+        }
+        /*
+        시간 측정 로직 구현을 개별로 했을 때 문제
+        - 회원가입, 회원 조회에 시간을 측정하는 기능은 핵심 관심 사항이 아니다.
+        - 시간을 측정하는 로직은 공통 관심 사항이다.
+        - 시간을 측정하는 로직과 핵심 비즈니스의 로직이 섞여서 유지보수가 어렵다.
+        - 시간을 측정하는 로직을 별도의 공통 로직으로 만들기 매우 어렵다.
+        - 시간을 측정하는 로직을 변경할 때 모든 로직을 찾아가면서 변경해야 한다.
+
+        AOP
+        공통 관심 사항(cross-cutting concern) vs 핵심 관심 사항(core concern)
+         */
     }
 
     private void validateDuplicateMember(Member member) {
