@@ -1,5 +1,6 @@
 package hello.hellospring;
 
+import hello.hellospring.aop.TimeTraceAop;
 import hello.hellospring.repository.JpaMemberRepository;
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.service.MemberService;
@@ -35,6 +36,11 @@ public class SpringConfig {
     public MemberService memberService() {
 //        return new MemberService(memberRepository());
         return new MemberService(memberRepository); // SpringDataJpaMemberRepository 인터페이스를 만들어 두어, 해당 스프링데이터 JPA가 구현체를 Bean으로 등록.
+    }
+
+    @Bean
+    public TimeTraceAop timeTraceAop() {
+        return new TimeTraceAop();
     }
 
 //    @Bean
