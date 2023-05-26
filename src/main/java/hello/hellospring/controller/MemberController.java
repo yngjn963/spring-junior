@@ -17,6 +17,9 @@ public class MemberController {
     @Autowired // 스프링 컨테이너에서 Controller와 MemberService를 연결한다. = DI
     public MemberController(MemberService memberService) { // 오류 발생: memberService가 스프링 빈으로 등록되어 있지 않다.
         this.memberService = memberService;
+
+        System.out.println("memberService = " + memberService.getClass());
+        // memberService = class hello.hellospring.service.MemberService$$EnhancerBySpringCGLIB$$de89008: MemberService를 복제해서 코드를 조작
     }
 
     /*

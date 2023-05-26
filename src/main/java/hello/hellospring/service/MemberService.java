@@ -27,9 +27,9 @@ public class MemberService {
      * @return
      */
     public Long join(Member member) {
-        long start = System.currentTimeMillis();
-
-        try {
+//        long start = System.currentTimeMillis();
+//
+//        try {
             // 같은 이름이 있는 중복 회원은 안된다고 가정하면
             validateDuplicateMember(member); // ctrl + alt + shift + T = 메서드 추출
 //        Optional<Member> result = memberRepository.findByName(member.getName());
@@ -37,15 +37,15 @@ public class MemberService {
 //            throw new IllegalStateException("이미 존재하는 회원입니다.");
 //        });
 
-            memberRepository.save(member);
+        memberRepository.save(member);
 
-            return member.getId();
-        } finally {
-            long finish = System.currentTimeMillis();
-            long timeMs = finish - start;
-
-            System.out.println("join = " + timeMs + "ms");
-        }
+        return member.getId();
+//        } finally {
+//            long finish = System.currentTimeMillis();
+//            long timeMs = finish - start;
+//
+//            System.out.println("join = " + timeMs + "ms");
+//        }
         /*
         시간 측정 로직 구현을 개별로 했을 때 문제
         - 회원가입, 회원 조회에 시간을 측정하는 기능은 핵심 관심 사항이 아니다.
